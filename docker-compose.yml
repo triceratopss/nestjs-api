@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: .
+    container_name: 'nestjs-api'
+    restart: always
+    environment:
+      TZ: 'Asia/Tokyo'
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./:/api
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    container_name: 'nestjs-db'
+    restart: always
+    environment:
+      MYSQL_DATABASE: nest-db
+      MYSQL_USER: nest-user
+      MYSQL_PASSWORD: nest-pass
+      MYSQL_ROOT_PASSWORD: nest-pass
+      TZ: 'Asia/Tokyo'
+    ports:
+      - '33306:3306'
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
