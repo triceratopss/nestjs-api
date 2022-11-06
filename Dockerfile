@@ -1,4 +1,6 @@
-FROM node:18.12-alpine
+FROM node:16.18-alpine
+
+RUN yarn global add @nestjs/cli
 
 WORKDIR /api
 COPY package.json yarn.lock /api

@@ -11,7 +11,13 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - ./:/api
+      - type: bind
+        source: './'
+        target: '/api'
+      # node_modulesを名前付きボリュームに隠す
+      - type: volume
+        source: 'node_modules_data'
+        target: '/api/node_modules'
     depends_on:
       - db
 
@@ -32,3 +38,4 @@ services:
 
 volumes:
   db-data:
+  node_modules_data:
